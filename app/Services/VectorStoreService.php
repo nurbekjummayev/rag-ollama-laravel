@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 class VectorStoreService
 {
     protected string $baseUrl = 'http://localhost:6333';
+
     protected string $collection = 'documents';
 
     public function createCollectionIfNotExists(int $vectorSize = 768): void

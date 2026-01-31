@@ -11,12 +11,15 @@ use Filament\Pages\Page;
 class Chat extends Page implements HasForms
 {
     use InteractsWithForms;
+
     protected static ?string $navigationLabel = 'AI Chat';
+
     protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-chat-bubble-left-right';
 
     protected string $view = 'filament.pages.chat';
 
     public string $question = '';
+
     public string $answer = '';
 
     public function ask()
@@ -31,12 +34,12 @@ class Chat extends Page implements HasForms
     protected function getFormSchema(): array
     {
         return [
-           Textarea::make('question')
+            Textarea::make('question')
                 ->label('Savolingiz')
                 ->rows(3)
                 ->required(),
 
-           Textarea::make('answer')
+            Textarea::make('answer')
                 ->label('Javob')
                 ->rows(10)
                 ->disabled(),

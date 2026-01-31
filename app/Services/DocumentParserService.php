@@ -8,9 +8,9 @@ class DocumentParserService
 {
     public function extractText(string $filePath): string
     {
-        $fullPath = storage_path('app/public/' . $filePath);
+        $fullPath = storage_path('app/public/'.$filePath);
 
-        if (!file_exists($fullPath)) {
+        if (! file_exists($fullPath)) {
             throw new \Exception('File not found');
         }
 
@@ -23,7 +23,8 @@ class DocumentParserService
 
     protected function fromPdf(string $path): string
     {
-        $output = shell_exec("pdftotext " . escapeshellarg($path) . " -");
+        $output = shell_exec('pdftotext '.escapeshellarg($path).' -');
+
         return trim($output ?? '');
     }
 
@@ -35,7 +36,7 @@ class DocumentParserService
         foreach ($phpWord->getSections() as $section) {
             foreach ($section->getElements() as $element) {
                 if (method_exists($element, 'getText')) {
-                    $text .= $element->getText() . ' ';
+                    $text .= $element->getText().' ';
                 }
             }
         }

@@ -11,7 +11,7 @@ class OllamaChatService
     public function chat(string $prompt): string
     {
         $response = Http::timeout(120)->post(
-            $this->baseUrl . '/api/chat',
+            $this->baseUrl.'/api/chat',
             [
                 'model' => 'llama3:8b',
                 'messages' => [

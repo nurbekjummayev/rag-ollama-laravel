@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OllamaChatService;
 use App\Services\RagChatService;
 use Illuminate\Http\Request;
 

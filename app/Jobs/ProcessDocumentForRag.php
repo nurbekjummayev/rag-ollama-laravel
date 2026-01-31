@@ -2,15 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Models\Document;
+use App\Services\DocumentParserService;
+use App\Services\EmbeddingService;
+use App\Services\TextChunkingService;
+use App\Services\VectorStoreService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use App\Services\{
-    DocumentParserService,
-    TextChunkingService,
-    EmbeddingService,
-    VectorStoreService
-};
-use App\Models\Document;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -30,7 +28,7 @@ class ProcessDocumentForRag implements ShouldQueue
         VectorStoreService $vectorStore
     ) {
         Log::info('RAG job started', [
-            'document_id' => $this->document->id
+            'document_id' => $this->document->id,
         ]);
 
         $vectorStore->createCollectionIfNotExists();

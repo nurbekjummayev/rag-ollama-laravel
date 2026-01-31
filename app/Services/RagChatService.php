@@ -37,6 +37,7 @@ $context
 SAVOL:
 $question
 PROMPT;
+
         // 5. Ollama'dan javob olamiz
         return app(OllamaChatService::class)->chat($prompt);
     }
@@ -73,5 +74,4 @@ PROMPT;
         // ⚠️ xavfsizlik uchun
         return trim(preg_replace('/[\r\n]+/', ' ', $result));
     }
-
 }
