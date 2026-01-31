@@ -8,24 +8,23 @@ class DocumentParserService
 {
     public function extractText(string $filePath): string
     {
-        $fullPath = storage_path('app/public/'.$filePath);
+//        $text = $this->fromPdf($filePath);
+//
+//        // Agar text juda kam bo‘lsa → scan deb hisoblaymiz
+//        if (strlen($text) < 100) {
+            $text = app(OcrService::class)
+                ->extractTextFromPdf($filePath);
+//        }
 
-        if (! file_exists($fullPath)) {
-            throw new \Exception('File not found');
-        }
-
-        return match (pathinfo($fullPath, PATHINFO_EXTENSION)) {
-            'pdf' => $this->fromPdf($fullPath),
-            'docx' => $this->fromDocx($fullPath),
-            default => throw new \Exception('Unsupported file type'),
-        };
+        return $text;
     }
 
-    protected function fromPdf(string $path): string
+    protected function fromPdf(string $filePath): string
     {
-        $output = shell_exec('pdftotext '.escapeshellarg($path).' -');
-
-        return trim($output ?? '');
+        $path = storage_path('app/public/' . $filePath);
+        return shell_exec(
+            'pdftotext ' . escapeshellarg($path) . ' -'
+        ) ?? '';
     }
 
     protected function fromDocx(string $path): string
